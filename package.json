@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "pnpm build; git add dist -f; git commit -m 'Adding dist'; git subtree push --prefix dist origin gh-pages;"
   },
   "dependencies": {
     "preact": "^10.13.2"
