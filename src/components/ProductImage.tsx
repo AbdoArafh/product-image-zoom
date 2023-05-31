@@ -18,38 +18,31 @@ export default function ProductImage(props: HTMLAttributes<HTMLImageElement>) {
     wrapper.addEventListener("mousemove", (e) => {
       if (ctx && img) {
         const size = { width: img?.offsetWidth!, height: img?.offsetHeight! };
+
         const showRect = {
-          width: size.width / 2,
-          height: size.height / 2,
+          width: size.width / 2.5,
+          height: size.height / 2.5,
         };
+
         ctx.clearRect(0, 0, size.width, size.height);
-        ctx.drawImage(
-          img,
-          constrain(
-            e.offsetX - showRect.width / 2,
-            0,
-            size.width - showRect.width
-          ),
-          constrain(
-            e.offsetY - showRect.height / 2,
-            0,
-            size.height - showRect.height
-          ),
-          constrain(
-            e.offsetX + showRect.width / 2,
-            showRect.width,
-            size.width - showRect.width
-          ),
-          constrain(
-            e.offsetY + showRect.height / 2,
-            showRect.height,
-            size.height - showRect.height
-          ),
+
+        const sx = constrain(
+          e.offsetX - showRect.width / 2,
           0,
-          0,
-          size?.width,
-          size?.height
+          size.width - showRect.width
         );
+
+        const sy = constrain(
+          e.offsetY - showRect.height / 2,
+          0,
+          size.height - showRect.height
+        );
+
+        const sw = showRect.width;
+
+        const sh = showRect.height;
+
+        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, size?.width, size?.height);
       }
     });
   };
@@ -64,7 +57,8 @@ export default function ProductImage(props: HTMLAttributes<HTMLImageElement>) {
 
     if (canvasRef.current && imageRef.current) {
       const ctx = canvasRef.current.getContext("2d");
-      imageRef.current.onload = () => {
+      const img = imageRef.current;
+      img.onload = () => {
         startTrackingMouse(ctx, imageRef.current);
       };
     }
