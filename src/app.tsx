@@ -4,9 +4,9 @@ import ProductImage from "./components/ProductImage";
 export function App() {
   return (
     <ProductImage
-      src="https://picsum.photos/id/1/600/700"
-      width={600}
-      height={700}
+      src="https://picsum.photos/id/50/300/300"
+      width={300}
+      height={300}
     />
   );
 }
