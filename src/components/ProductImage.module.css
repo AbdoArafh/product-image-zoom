@@ -2,7 +2,8 @@
   position: relative;
 }
 
-.image-wrapper:hover .canvas {
+.image-wrapper:hover .canvas,
+.image-wrapper.clicked .canvas {
   opacity: 1;
 }
 

@@ -43,17 +43,26 @@ export default function ProductImage(props: HTMLAttributes<HTMLImageElement>) {
           const sh = showRect.height;
 
           ctx.drawImage(img, sx, sy, sw, sh, 0, 0, size?.width, size?.height);
+
+          if (e.type === "click") {
+            wrapperRef.current?.classList.add(styles["clicked"]);
+          } else {
+            wrapperRef.current?.classList.remove(styles["clicked"]);
+          }
         }
       };
 
-      const handleImageLoad = () =>
+      const handleImageLoad = () => {
         wrapperRef.current?.addEventListener("mousemove", handleMouseMove);
+        wrapperRef.current?.addEventListener("click", handleMouseMove);
+      };
 
       img.addEventListener("load", handleImageLoad);
 
       return () => {
         img.removeEventListener("load", handleImageLoad);
         wrapperRef.current?.removeEventListener("mousemove", handleMouseMove);
+        wrapperRef.current?.removeEventListener("click", handleMouseMove);
       };
     }
   }, []);
